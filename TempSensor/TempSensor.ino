@@ -1,6 +1,5 @@
 //Variables
-int tempPin = 0; //input the analog pin that the TMP36's Vout is connected to
-int buzzerPin = 1; //buzzer pins Vout is connected here 
+int tempPin = A0; //input the analog pin that the TMP36's Vout is connected to
 
 float sinVal;
 int toneVal; 
@@ -13,8 +12,8 @@ void setup() {
 
 
 void loop() {
-  int rawVal = analogRead(tempPin); //saving the value received from the TMP36
-  float voltage = rawVal * 5.0; //converts the sensor value to voltage (for 5V)
+  int rawTempVal = analogRead(tempPin); //saving the value received from the TMP36
+  float voltage = rawTempVal * 5.0; //converts the sensor value to voltage (for 5V)
   voltage /= 1024.0;
 
   Serial.print(voltage); Serial.println("volts"); //printing out the voltage for visualization, can be removed later
@@ -33,7 +32,7 @@ void loop() {
     }
 
   }
- if(temperatureC<2){
+  else if(temperatureC<2){
     for(int x=0; x<180; x++){ 
       sinVal=(sin(x*(3.1412/180))); //convert sin function from degrees to radians
       toneVal = 2000+(int(sinVal*1000)); //generating a sound frequency
